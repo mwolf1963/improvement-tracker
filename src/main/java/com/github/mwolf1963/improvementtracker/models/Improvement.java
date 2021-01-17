@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name= "improvements")
 @JsonIgnoreProperties({"hibernateLayInitializer", "handler", "images"})
+
 public class Improvement {
     @Id
     @Column(name="improvement_id")
@@ -21,15 +22,25 @@ public class Improvement {
     @OneToMany
     @JoinColumn(name="image_id")
     private List<Image> images = new ArrayList<>();
-
+    @ManyToOne
+    @JoinColumn(name="id", nullable = false)
+    private Part part;
     private String description;
     private String solution;
     private String result;
 
     public Improvement() {
     }
+    
+    public Part getPart() {
+		return part;
+	}
 
-    public int getImprovement_id() {
+	public void setPart(Part part) {
+		this.part = part;
+	}
+
+	public int getImprovement_id() {
         return improvement_id;
     }
 
