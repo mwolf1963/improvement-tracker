@@ -3,6 +3,7 @@
 /*Description: AJAX framework with two processes for Typing Demo*/
 
 function getAjaxFunction(path){
+	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
 	
 	try{
@@ -24,18 +25,25 @@ function getAjaxFunction(path){
 	}
 	//Create a function that will recieve data sent from the server
 	ajaxRequest.onreadystatechange = function(){
+		console.log("in ready state change function");
 		if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200){
-			var ajaxDisplay = document.getElementById('main_content');
-			ajaxDisplay.innerHTML = ajaxRequest.responseText;
 			
+			   let display = document.getElementById("main_content");
+				display.innerHTML = ajaxRequest.responseText;
+			
+		} else{
+			console.log(ajaxRequest.status.toString());
 		}
 	}
 	
 	
 	ajaxRequest.open("GET", path,true);
 	ajaxRequest.send(null);
-
+	console.log("end of getIndexImprovements");
 }
 function getIndexImprovements(){
-	getAjaxFunction("//api//v1//improvements" )
+	console.log("in getIndexImprovements");
+	var ajaxDisplay =getAjaxFunction("/api/v1/improvements" );
+	console.log("after getIndexImprovements");
+	return ajaxDisplay;
 }

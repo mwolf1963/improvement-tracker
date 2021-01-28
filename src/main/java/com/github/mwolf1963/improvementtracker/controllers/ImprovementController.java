@@ -23,6 +23,7 @@ public class ImprovementController {
 	private ImprovementRepository improvementRepository;
     @GetMapping
     public List<Improvement> list(){
+    	System.out.println("in the getimprovements API");
     	return improvementRepository.findAll();
     }
 
