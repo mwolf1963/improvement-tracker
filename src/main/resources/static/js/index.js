@@ -4,10 +4,10 @@
 
 function init(){
 	console.log("in init");
+
 	getIndexImprovements();
-   let display = document.getElementById("main_content");
-   display.innerHTML = response;
-   console.log("after calling getIndexImprovements");
+
+    console.log("after calling getIndexImprovements");
 }
 /*
 

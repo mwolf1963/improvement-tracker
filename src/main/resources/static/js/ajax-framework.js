@@ -28,7 +28,7 @@ function getAjaxFunction(path){
 		console.log("in ready state change function");
 		if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200){
 			
-			   let display = document.getElementById("main_content");
+			   let display = document.getElementById("ajax_content");
 				display.innerHTML = ajaxRequest.responseText;
 			
 		} else{
