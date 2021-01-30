@@ -38,7 +38,7 @@ function getAjaxFunctionAllImporvements(path){
 
 			   let display = document.getElementById("ajax_content");
 				display.innerHTML = ajaxRequest.responseText;
-				console.log(display.length())
+				console.log(display.length)
 
 		} else{
 			console.log(ajaxRequest.status.toString());
