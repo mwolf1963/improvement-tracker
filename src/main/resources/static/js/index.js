@@ -10,7 +10,7 @@ function init(){
     console.log("after calling getIndexImprovements");
 }
 
-function getAjaxFunctionAllImporvements(path){
+function getAjaxFunctionAllImprovements(path){
 	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
 
@@ -34,11 +34,18 @@ function getAjaxFunctionAllImporvements(path){
 	//Create a function that will recieve data sent from the server
 	ajaxRequest.onreadystatechange = function(){
 		console.log("in ready state change function");
-		if (ajaxRequest.readyState == 4 && ajaxRequest.status == 200){
+		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200){
 
 			   let display = document.getElementById("ajax_content");
-				display.innerHTML = ajaxRequest.responseText;
-				console.log(ajaxRequest.responseText.length);
+				let displayArray = JSON.parse(ajaxRequest.responseText);
+				let display_resp = document.getElementById("ref_ajax");
+				display_resp.innerText = ajaxRequest.responseText;
+				let responseMarkup = "<table>";
+				displayArray.forEach(x => {
+
+
+
+				});
 
 		} else{
 			console.log(ajaxRequest.status.toString());
@@ -53,7 +60,7 @@ function getAjaxFunctionAllImporvements(path){
 
 function getIndexImprovements(){
 	console.log("in getIndexImprovements");
-	var ajaxDisplay =getAjaxFunctionAllImporvements("/api/v1/improvements" );
+	var ajaxDisplay =getAjaxFunctionAllImprovements("/api/v1/improvements" );
 	console.log("after getIndexImprovements");
 	return ajaxDisplay;
 }
