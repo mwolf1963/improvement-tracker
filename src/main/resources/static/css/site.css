@@ -18,6 +18,20 @@ body{
   padding: 25px;
   width: 1000px;
 }
+#display_table{
+  width:800px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+table, th, td {
+  border: 1px solid black;
+
+}
+
+th, td {
+  padding: 15px;
+}
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;

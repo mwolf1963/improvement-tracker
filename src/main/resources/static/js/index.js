@@ -40,12 +40,13 @@ function getAjaxFunctionAllImprovements(path){
 				let displayArray = JSON.parse(ajaxRequest.responseText);
 				let display_resp = document.getElementById("ref_ajax");
 				display_resp.innerText = ajaxRequest.responseText;
-				let responseMarkup = "<table>";
-				displayArray.forEach(x => {
+				let responseMarkup = "<table id=\"display_table\"><tr><th>Customer Name</th><th>Part Number</th><th>Improvement Type</th><th>Material</th></tr>";
 
+				for (let x = 0; x < displayArray.length;  x++){
+					responseMarkup += "<tr><td>" + displayArray[x].customer.customerName + "</td><td>"+ displayArray[x].part.partNumber + "</td><td>"+ displayArray[x].improvementType.improvementType+ "</td><td>" + displayArray[x].part.material.materialType + "</td></tr>";
 
-
-				});
+				}
+			display.innerHTML = responseMarkup + "</table>";
 
 		} else{
 			console.log(ajaxRequest.status.toString());
