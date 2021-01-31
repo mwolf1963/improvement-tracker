@@ -22,10 +22,24 @@ body{
   width:800px;
   margin-left: auto;
   margin-right: auto;
+  height:750px;
 
 }
 .view_improvement_link:hover{
   cursor: pointer;
+}
+.one-twenty{
+  width: 120px;
+  display: inline-block;
+}
+.form-div-left{
+  float: left;
+}
+.form-div-right{
+  float: right;
+}
+.one-sixty{
+  width: 160px;
 }
 table, th, td {
   border: 1px solid black;

@@ -1,6 +1,7 @@
 package com.github.mwolf1963.improvementtracker.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ImprovementController {
     }
     
     @GetMapping("/{id}")
-    public Improvement get(@PathVariable("id") long id){
-        return improvementRepository.getOne(id);
+    public Optional<Improvement> get(@PathVariable("id") long id){
+        return improvementRepository.findById(id);
     }
 }
