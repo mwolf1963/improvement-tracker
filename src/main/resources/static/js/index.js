@@ -38,15 +38,65 @@ function getAjaxFunctionAllImprovements(path){
 
 			   let display = document.getElementById("ajax_content");
 				let displayArray = JSON.parse(ajaxRequest.responseText);
-				let display_resp = document.getElementById("ref_ajax");
-				display_resp.innerText = ajaxRequest.responseText;
-				let responseMarkup = "<table id=\"display_table\"><tr><th>Customer Name</th><th>Part Number</th><th>Improvement Type</th><th>Material</th></tr>";
+				//starting to create and append elements
+				let table = document.createElement("table");
+				table.id = "display_table";
+				let header_row = document.createElement("tr");
+
+				let viewHead = document.createElement("th")
+				viewHead.innerText = "Click to View";
+				let customerName = document.createElement("th")
+				customerName.innerText = "Customer Name";
+				let partNumber = document.createElement("th")
+				partNumber.innerText = "Part Number";
+				let improvementType = document.createElement("th")
+				improvementType.innerText = "Improvement Type";
+				let materialType = document.createElement("th")
+				materialType.innerText = "Material";
+
+				//attach header elements
+				header_row.appendChild(viewHead);
+				header_row.appendChild(customerName);
+				header_row.appendChild(partNumber);
+				header_row.appendChild(improvementType);
+				header_row.appendChild(materialType);
+				table.appendChild(header_row);
 
 				for (let x = 0; x < displayArray.length;  x++){
-					responseMarkup += "<tr><td>" + displayArray[x].customer.customerName + "</td><td>"+ displayArray[x].part.partNumber + "</td><td>"+ displayArray[x].improvementType.improvementType+ "</td><td>" + displayArray[x].part.material.materialType + "</td></tr>";
-
+					let row = document.createElement("tr");
+					let viewCol = document.createElement("td");
+					let link = document.createElement("a");
+					link.id = "view_improvement_" + x;
+					link.className = "view_improvement_link";
+					link.innerText="View";
+					link.onclick = function (){
+					console.log(this.id)
+					};
+					let nameDisplay = document.createElement("td");
+					nameDisplay.innerText = displayArray[x].customer.customerName;
+					let partDisplay = document.createElement("td");
+					partDisplay.innerText = displayArray[x].part.partNumber;
+					let typeDisplay = document.createElement("td");
+					typeDisplay.innerText = displayArray[x].improvementType.improvementType;
+					let materialDisplay = document.createElement("td");
+					materialDisplay.innerText = displayArray[x].part.material.materialType;
+					viewCol.appendChild(link);
+					row.appendChild(viewCol);
+					row.appendChild(nameDisplay);
+					row.appendChild(partDisplay);
+					row.appendChild(typeDisplay);
+					row.appendChild(materialDisplay);
+					table.appendChild(row);
+					/*responseMarkup += "<tr><td id=" + displayArray[x].improvement_id + ">" +
+						"<a id=" +displayArray[x].improvement_id +" onclick=getImprovementById>View Improvement</a>" +
+						"</td>" +
+						"<td>" + displayArray[x].customer.customerName + "</td>" +
+						"<td>"+ displayArray[x].part.partNumber + "</td>" +
+						"<td>"+ displayArray[x].improvementType.improvementType+ "</td>" +
+						"<td>" + displayArray[x].part.material.materialType + "</td>" +
+						"</tr>";*/
 				}
-			display.innerHTML = responseMarkup + "</table>";
+			display.appendChild(table);
 
 		} else{
 			console.log(ajaxRequest.status.toString());
@@ -65,7 +115,9 @@ function getIndexImprovements(){
 	console.log("after getIndexImprovements");
 	return ajaxDisplay;
 }
-
+function getImprovementById(){
+	console.log("in getImprovementById. ID =:" + this.toString());
+}
 
 if (window.addEventListener) {
     window.addEventListener("load", init, false);

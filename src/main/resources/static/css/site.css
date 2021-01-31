@@ -24,11 +24,13 @@ body{
   margin-right: auto;
 
 }
+.view_improvement_link:hover{
+  cursor: pointer;
+}
 table, th, td {
   border: 1px solid black;
 
 }
-
 th, td {
   padding: 15px;
 }
