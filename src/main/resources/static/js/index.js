@@ -13,8 +13,8 @@ function init(){
 
 function createForm() {
 	let form = document.createElement("form");
-	form.style.width = "800px";
-	form.style.border = "1px black solid";
+
+	form.id = "displaySingle";
 
 	let customerDiv = document.createElement("div");
 	customerDiv.className = "form-div-left";
@@ -43,8 +43,44 @@ function createForm() {
 	improvementTypeField.id = "improvementTypeField";
 	improvementTypeDiv.append(improvementTypeLabel, improvementTypeField);
 
+	let materialTypeDiv = document.createElement("div");
+	materialTypeDiv.className = "form-div-right";
+	let materialTypeLabel = document.createElement("label");
+	materialTypeLabel.innerText = "Material Type";
+	materialTypeLabel.className = "one-sixty";
+	let materialTypeField = document.createElement("input");
+	materialTypeField.id = "materialTypeField";
+	materialTypeDiv.append(materialTypeLabel, materialTypeField);
+
+	let descriptionDiv = document.createElement("div");
+	descriptionDiv.className = "form-div-textbox";
+	let descriptionLabel = document.createElement("label");
+	descriptionLabel.innerText = "Description of Problem";
+	let descriptionTB = document.createElement("textarea");
+	descriptionTB.className = "form-textarea";
+	descriptionTB.id = "descriptionTB";
+	descriptionDiv.append(descriptionLabel, descriptionTB);
+
+	let solutionDiv = document.createElement("div");
+	solutionDiv.className = "form-div-textbox";
+	let solutionLabel = document.createElement("label");
+	solutionLabel.innerText = "Description of Solution";
+	let solutionTB = document.createElement("textarea");
+	solutionTB.className = "form-textarea";
+	solutionTB.id = "solutionTB";
+	solutionDiv.append(solutionLabel, solutionTB);
+
+	let resultDiv = document.createElement("div");
+	resultDiv.className = "form-div-textbox";
+	let resultLabel = document.createElement("label");
+	resultLabel.innerText = "Result";
+	let resultTB = document.createElement("textarea");
+	resultTB.className = "form-textarea";
+	resultTB.id = "resultTB";
+	resultDiv.append(resultLabel, resultTB);
+
 	//append the children elements
-	form.append(customerDiv, improvementTypeDiv, partNumberDiv);
+	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv);
 	return form;
 
 
@@ -83,7 +119,43 @@ function getAjaxFunctionAnImprovement(path) {
 		console.log("in ready state change function");
 		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200) {
 			console.log(ajaxRequest.responseText);
-			let improvementDisplay = createImprovementView();
+			let displayArray = JSON.parse(ajaxRequest.responseText);
+			createImprovementView();
+
+			let customerNameDisplay = document.getElementById("customerNameField");
+			customerNameDisplay.value = displayArray.customer.customerName;
+			customerNameDisplay.className += " style-disabled";
+			customerNameDisplay.disabled = true;
+
+			let improvementTypeDisplay = document.getElementById("improvementTypeField");
+			improvementTypeDisplay.value = displayArray.improvementType.improvementType;
+			improvementTypeDisplay.className += " style-disabled";
+			improvementTypeDisplay.disabled = true;
+
+			let partNumberDisplay = document.getElementById("partNumberField");
+			partNumberDisplay.value = displayArray.part.partNumber;
+			partNumberDisplay.className += " style-disabled";
+			partNumberDisplay.disabled = true;
+
+			let materialTypeDisplay = document.getElementById("materialTypeField");
+			materialTypeDisplay.value = displayArray.part.material.materialType;
+			materialTypeDisplay.className += " style-disabled";
+			materialTypeDisplay.disabled = true;
+
+			let descDisplay = document.getElementById("descriptionTB");
+			descDisplay.value = displayArray.description;
+			descDisplay.className += " style-disabled";
+			descDisplay.disabled = true;
+
+			let solutionDisplay = document.getElementById("solutionTB");
+			solutionDisplay.value = displayArray.solution;
+			solutionDisplay.className += " style-disabled";
+			solutionDisplay.disabled = true;
+
+			let resultDisplay = document.getElementById("resultTB");
+			resultDisplay.value = displayArray.result;
+			resultDisplay.className += " style-disabled";
+			resultDisplay.disabled = true;
 		}
 
 	}
