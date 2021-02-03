@@ -12,7 +12,7 @@ import java.util.List;
 public class Part {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long part_id;
+	private int part_id;
 	
 	private String partNumber;
 	@ManyToOne
@@ -24,7 +24,7 @@ public class Part {
 	public long getId() {
 		return part_id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.part_id = id;
 	}
 	public String getPartNumber() {

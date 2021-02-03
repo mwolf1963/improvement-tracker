@@ -31,7 +31,7 @@ public class MaterialController {
     }
     
     @GetMapping("/{id}")
-    public Material get(@PathVariable("id") long id){
+    public Material get(@PathVariable("id") int id){
         return materialRepository.getOne(id);
     }
 }

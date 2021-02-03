@@ -1,9 +1,13 @@
 //Author: Matt Wolf
-//Date: 1-26-21
-//Desc: This script loads the improvement table on the home page of the site.
+//Date: 1-31-21
+//Desc: this script controls all ajax and dom manipulation. in need of refactor.
+
+var improvementsArray;
+var materialsArray;
 
 function init(){
 	console.log("in init");
+	let create = document.getElementById("create-improvement");
 
 	getIndexImprovements();
 
@@ -39,8 +43,14 @@ function createForm() {
 	let improvementTypeLabel = document.createElement("label");
 	improvementTypeLabel.innerText = "Improvement Type";
 	improvementTypeLabel.className ="one-sixty";
-	let improvementTypeField = document.createElement("input");
+	let improvementTypeField = document.createElement("select");
 	improvementTypeField.id = "improvementTypeField";
+	for(let i = 0; i < improvementsArray.length; i++){
+		let opt = document.createElement("option");
+		opt.id = "improvement_type_" + improvementsArray[i].id;
+		opt.value = improvementsArray[i].improvementType;
+		improvementTypeField.appendChild(opt);
+	}
 	improvementTypeDiv.append(improvementTypeLabel, improvementTypeField);
 
 	let materialTypeDiv = document.createElement("div");
@@ -48,9 +58,16 @@ function createForm() {
 	let materialTypeLabel = document.createElement("label");
 	materialTypeLabel.innerText = "Material Type";
 	materialTypeLabel.className = "one-sixty";
-	let materialTypeField = document.createElement("input");
+	let materialTypeField = document.createElement("select");
 	materialTypeField.id = "materialTypeField";
+	for(let i = 0; i < materialArray.length; i++){
+		let opt = document.createElement("option");
+		opt.id = "improvement_type_" + materialArray[i].id;
+		opt.value = materialArray[i].improvementType;
+		improvementTypeField.appendChild(opt);
+	}
 	materialTypeDiv.append(materialTypeLabel, materialTypeField);
+
 
 	let descriptionDiv = document.createElement("div");
 	descriptionDiv.className = "form-div-textbox";
@@ -78,9 +95,12 @@ function createForm() {
 	resultTB.className = "form-textarea";
 	resultTB.id = "resultTB";
 	resultDiv.append(resultLabel, resultTB);
+	let button = document.createElement("button")
+	button.innerText = "Submit";
+	button.id = "submit-button";
 
 	//append the children elements
-	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv);
+	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
 	return form;
 
 
@@ -137,8 +157,8 @@ function getAjaxFunctionAnImprovement(path) {
 			partNumberDisplay.className += " style-disabled";
 			partNumberDisplay.disabled = true;
 
-			let materialTypeDisplay = document.getElementById("materialTypeField");
-			materialTypeDisplay.value = displayArray.part.material.materialType;
+			let materialTypeDisplay = document.getElementById("material_type_" +  displayArray.part.material.id);
+			materialTypeDisplay.selected = true;
 			materialTypeDisplay.className += " style-disabled";
 			materialTypeDisplay.disabled = true;
 
@@ -156,6 +176,9 @@ function getAjaxFunctionAnImprovement(path) {
 			resultDisplay.value = displayArray.result;
 			resultDisplay.className += " style-disabled";
 			resultDisplay.disabled = true;
+
+			let button = document.getElementById("submit-button");
+			button.hidden = true;
 		}
 
 	}
@@ -163,6 +186,43 @@ function getAjaxFunctionAnImprovement(path) {
 		ajaxRequest.send(null);
 		console.log("end of getAnImprovement");
 
+}
+
+function getAjaxFunctionAll(url){
+	console.log("in getAjaxFunction");
+	var ajaxRequest;	//The variable that makes all the magic possible
+
+	try{
+		//Real Browsers
+		ajaxRequest = new XMLHttpRequest();
+	} catch(e){
+		// Internet Exploder
+		try{
+			ajaxRequest = new ActiveXObject("Msxm12.XMLHTTP");
+		}catch (e){
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.ZMLHTTP");
+			} catch(e){
+				//Something went wrong
+				alert("Your browser cannot handle AJAX!");
+				return false;
+			}
+		}
+	}
+	//Create a function that will recieve data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		console.log("in ready state change function");
+		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200){
+			let displayArray = JSON.parse(ajaxRequest.responseText);
+			//starting to create and append elements
+			return displayArray;
+		} else{
+			console.log(ajaxRequest.status.toString());
+		}
+	}
+	ajaxRequest.open("GET", url,true);
+	ajaxRequest.send(null);
+	console.log("end of getIndexImprovements");
 }
 
 function getAjaxFunctionAllImprovements(path){
@@ -266,10 +326,15 @@ function getIndexImprovements(){
 	console.log("after getIndexImprovements");
 	return ajaxDisplay;*/
 }
-
+//global variables
+var createMI = document.getElementById("create-improvement");
+materialsArray = getAjaxFunctionAll("/api/v1/materials");
+improvementsArray = getAjaxFunctionAll("/api/v1/improvementTypes");
 
 if (window.addEventListener) {
     window.addEventListener("load", init, false);
+    createMI.addEventListener("click", createImprovementView, false);
 } else if (window.attachEvent) {
     window.attachEvent("onload", init);
+    createMI.attachEvent("onclick", createImprovementView);
 }

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Material {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long material_id;
+	private int material_id;
 	
 	@OneToMany(mappedBy="material")
     private List<Part> parts = new ArrayList<>();
@@ -28,10 +28,10 @@ public class Material {
 	public Material() {}
 	
 	
-	public Long getId() {
+	public int getId() {
 		return material_id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.material_id = id;
 	}
 	public List<Part> getParts() {

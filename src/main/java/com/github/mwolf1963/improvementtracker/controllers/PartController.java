@@ -30,7 +30,7 @@ public class PartController {
     }
     
     @GetMapping("/{id}")
-    public Part get(@PathVariable("id") long id){
+    public Part get(@PathVariable("id") int id){
         return partRepository.getOne(id);
     }
 

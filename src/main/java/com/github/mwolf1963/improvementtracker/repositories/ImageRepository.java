@@ -8,6 +8,6 @@ import com.github.mwolf1963.improvementtracker.models.Image;
 
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface ImageRepository extends JpaRepository<Image, Integer> {
 
 }

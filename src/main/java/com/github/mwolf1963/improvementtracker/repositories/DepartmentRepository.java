@@ -8,5 +8,5 @@ import com.github.mwolf1963.improvementtracker.models.Department;
 
 
 @Repository
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+public interface DepartmentRepository extends JpaRepository<Department, Integer> {
 }

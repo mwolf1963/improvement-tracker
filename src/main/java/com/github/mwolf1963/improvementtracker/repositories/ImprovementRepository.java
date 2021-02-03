@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.github.mwolf1963.improvementtracker.models.Improvement;
 
 @Repository
-public interface ImprovementRepository extends JpaRepository<Improvement, Long> {
+public interface ImprovementRepository extends JpaRepository<Improvement, Integer> {
 
 }

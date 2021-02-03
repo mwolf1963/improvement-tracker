@@ -36,7 +36,7 @@ public class DepartmentController {
     }
     
     @GetMapping("/{id}")
-    public Department get(@PathVariable("id") long id){
+    public Department get(@PathVariable("id") int id){
         return departmentRepository.getOne(id);
     }
 

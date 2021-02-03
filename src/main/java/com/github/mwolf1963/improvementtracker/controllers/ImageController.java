@@ -31,7 +31,7 @@ public class ImageController {
     }
     
     @GetMapping("/{id}")
-    public Image get(@PathVariable("id") long id){
+    public Image get(@PathVariable("id") int id){
         return imageRepository.getOne(id);
     }
 }

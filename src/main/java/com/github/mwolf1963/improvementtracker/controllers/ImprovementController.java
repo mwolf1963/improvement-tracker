@@ -35,7 +35,7 @@ public class ImprovementController {
     }
     
     @GetMapping("/{id}")
-    public Optional<Improvement> get(@PathVariable("id") long id){
+    public Optional<Improvement> get(@PathVariable("id") int id){
         return improvementRepository.findById(id);
     }
 }

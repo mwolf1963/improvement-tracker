@@ -15,7 +15,7 @@ public class Improvement {
     @Id
     @Column(name="improvement_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long improvement_id;
+    private int improvement_id;
     @ManyToOne
     @JoinColumn(name= "department_id" , nullable = false)
     private Department department;
@@ -68,7 +68,7 @@ public class Improvement {
 		this.part = part;
 	}
 
-	public long getImprovement_id() {
+	public int getImprovement_id() {
         return improvement_id;
     }
 
