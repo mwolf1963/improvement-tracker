@@ -20,23 +20,8 @@ function createForm() {
 
 	form.id = "displaySingle";
 
-	let customerDiv = document.createElement("div");
-	customerDiv.className = "form-div-left";
-	let customerLabel = document.createElement("label");
-	customerLabel.innerText = "Customer Name";
-	customerLabel.className ="one-twenty";
-	let customerNameField = document.createElement("input");
-	customerNameField.id = "customerNameField";
-	customerDiv.append(customerLabel, customerNameField);
-
-	let partNumberDiv = document.createElement("div");
-	partNumberDiv.className ="form-div-left";
-	let partNumberLabel = document.createElement("label");
-	partNumberLabel.innerText = "Part Number";
-	partNumberLabel.className ="one-twenty";
-	let partNumberField = document.createElement("input");
-	partNumberField.id = "partNumberField";
-	partNumberDiv.append(partNumberLabel, partNumberField);
+	let customerDiv = inputComponent("Customer_Name", "one-twenty", "form-div-left");
+	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "form-div-left");
 
 	let improvementTypeDiv = document.createElement("div");
 	improvementTypeDiv.className = "form-div-right";
@@ -52,7 +37,7 @@ function createForm() {
 		improvementTypeField.appendChild(opt);
 	}
 	improvementTypeDiv.append(improvementTypeLabel, improvementTypeField);
-
+	/*
 	let materialTypeDiv = document.createElement("div");
 	materialTypeDiv.className = "form-div-right";
 	let materialTypeLabel = document.createElement("label");
@@ -67,16 +52,9 @@ function createForm() {
 		improvementTypeField.appendChild(opt);
 	}
 	materialTypeDiv.append(materialTypeLabel, materialTypeField);
+	*/
 
-
-	let descriptionDiv = document.createElement("div");
-	descriptionDiv.className = "form-div-textbox";
-	let descriptionLabel = document.createElement("label");
-	descriptionLabel.innerText = "Description of Problem";
-	let descriptionTB = document.createElement("textarea");
-	descriptionTB.className = "form-textarea";
-	descriptionTB.id = "descriptionTB";
-	descriptionDiv.append(descriptionLabel, descriptionTB);
+	//let descriptionDiv = textAreaComponent("Description-of-Problem", "one-twenty","form-textarea", "");
 
 	let solutionDiv = document.createElement("div");
 	solutionDiv.className = "form-div-textbox";
@@ -100,7 +78,8 @@ function createForm() {
 	button.id = "submit-button";
 
 	//append the children elements
-	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
+	//form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
+	form.append(customerDiv,  partNumberDiv,solutionDiv, resultDiv, button);
 	return form;
 
 
