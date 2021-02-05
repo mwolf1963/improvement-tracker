@@ -24,52 +24,16 @@ function createForm() {
 	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "form-div-left");
 	let improvementTypeDiv = textAreaComponent("Improvement Type", "one-sixty", "", "form-div-right");
 	let materialTypeDiv = dropDownComponent("Material Type", "","","form-div-right", "");
-	/*
-	let materialTypeDiv = document.createElement("div");
-	materialTypeDiv.className = "form-div-right";
-	let materialTypeLabel = document.createElement("label");
-	materialTypeLabel.innerText = "Material Type";
-	materialTypeLabel.className = "one-sixty";
-	let materialTypeField = document.createElement("select");
-	materialTypeField.id = "materialTypeField";
-	for(let i = 0; i < materialArray.length; i++){
-		let opt = document.createElement("option");
-		opt.id = "improvement_type_" + materialArray[i].id;
-		opt.value = materialArray[i].improvementType;
-		improvementTypeField.appendChild(opt);
-	}
-	materialTypeDiv.append(materialTypeLabel, materialTypeField);
-	*/
-
-	//let descriptionDiv = textAreaComponent("Description-of-Problem", "one-twenty","form-textarea", "");
-
-	let solutionDiv = document.createElement("div");
-	solutionDiv.className = "form-div-textbox";
-	let solutionLabel = document.createElement("label");
-	solutionLabel.innerText = "Description of Solution";
-	let solutionTB = document.createElement("textarea");
-	solutionTB.className = "form-textarea";
-	solutionTB.id = "solutionTB";
-	solutionDiv.append(solutionLabel, solutionTB);
-
-	let resultDiv = document.createElement("div");
-	resultDiv.className = "form-div-textbox";
-	let resultLabel = document.createElement("label");
-	resultLabel.innerText = "Result";
-	let resultTB = document.createElement("textarea");
-	resultTB.className = "form-textarea";
-	resultTB.id = "resultTB";
-	resultDiv.append(resultLabel, resultTB);
+	let problemDiv = dropDownComponent("Problem Description", "","","form-div-right", "");
+	let solutionDiv = dropDownComponent("Solution", "","","form-div-right", "");
+	let conclusionDiv = dropDownComponent("Conclusion", "","","form-div-right", "");
+	//append the children elements
+	//form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
 	let button = document.createElement("button")
 	button.innerText = "Submit";
 	button.id = "submit-button";
-
-	//append the children elements
-	//form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
-	form.append(customerDiv,  partNumberDiv,solutionDiv, resultDiv, button);
+	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv, problemDiv, solutionDiv, conclusionDiv, button);
 	return form;
-
-
 }
 
 function createImprovementView() {
