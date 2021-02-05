@@ -22,21 +22,8 @@ function createForm() {
 
 	let customerDiv = inputComponent("Customer_Name", "one-twenty", "form-div-left");
 	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "form-div-left");
-
-	let improvementTypeDiv = document.createElement("div");
-	improvementTypeDiv.className = "form-div-right";
-	let improvementTypeLabel = document.createElement("label");
-	improvementTypeLabel.innerText = "Improvement Type";
-	improvementTypeLabel.className ="one-sixty";
-	let improvementTypeField = document.createElement("select");
-	improvementTypeField.id = "improvementTypeField";
-	for(let i = 0; i < improvementsArray.length; i++){
-		let opt = document.createElement("option");
-		opt.id = "improvement_type_" + improvementsArray[i].id;
-		opt.value = improvementsArray[i].improvementType;
-		improvementTypeField.appendChild(opt);
-	}
-	improvementTypeDiv.append(improvementTypeLabel, improvementTypeField);
+	let improvementTypeDiv = textAreaComponent("Improvement Type", "one-sixty", "", "form-div-right");
+	let materialTypeDiv = dropDownComponent("Material Type", "","","form-div-right", "");
 	/*
 	let materialTypeDiv = document.createElement("div");
 	materialTypeDiv.className = "form-div-right";
