@@ -3,7 +3,7 @@
 //Desc: this script will clean up the messy creation of components, hopefully
 
 //returns a div
-function inputComponent(label, labelCssClass, divCssClass){
+function inputComponent(label, labelCssClass,inputClass, divCssClass){
     let div = document.createElement("div");
     div.className = divCssClass;
     let inputLabel = document.createElement("label");
@@ -23,7 +23,7 @@ function textAreaComponent(label, labelCssClass, textAreaCssClass, divCssClass){
     let inputLabel = document.createElement("label");
     inputLabel.id = label.toLowerCase() + "_label_id";
     inputLabel.innerText = label.replace("_", " ");
-    inputLabel.className = inputClass;
+    inputLabel.className = labelCssClass;
     let input = document.createElement("textarea");
     input.id = label.toLowerCase() + "_textarea_id";
     input.className = textAreaCssClass;

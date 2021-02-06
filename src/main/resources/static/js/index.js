@@ -20,13 +20,13 @@ function createForm() {
 
 	form.id = "displaySingle";
 
-	let customerDiv = inputComponent("Customer_Name", "one-twenty", "form-div-left");
-	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "form-div-left");
-	let improvementTypeDiv = textAreaComponent("Improvement Type", "one-sixty", "", "form-div-right");
-	let materialTypeDiv = dropDownComponent("Material Type", "","","form-div-right", "");
-	let problemDiv = dropDownComponent("Problem Description", "","","form-div-right", "");
-	let solutionDiv = dropDownComponent("Solution", "","","form-div-right", "");
-	let conclusionDiv = dropDownComponent("Conclusion", "","","form-div-right", "");
+	let customerDiv = inputComponent("Customer_Name", "one-twenty", "","form-div-left");
+	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "","form-div-left");
+	let improvementTypeDiv = dropDownComponent("Improvement Type", "one-sixty", "", "form-div-right");
+	let materialTypeDiv = dropDownComponent("Material Type", "","","form-div-right", []);
+	let problemDiv = textAreaComponent("Problem Description", "","","form-div-right", []);
+	let solutionDiv = textAreaComponent("Solution", "","","form-div-right", "");
+	let conclusionDiv = textAreaComponent("Conclusion", "","","form-div-right", "");
 	//append the children elements
 	//form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
 	let button = document.createElement("button")
@@ -256,10 +256,8 @@ function getIndexImprovements(){
 	console.log("after getIndexImprovements");
 	return ajaxDisplay;*/
 }
-//global variables
-var createMI = document.getElementById("create-improvement");
-materialsArray = getAjaxFunctionAll("/api/v1/materials");
-improvementsArray = getAjaxFunctionAll("/api/v1/improvementTypes");
+//global vars
+let createMI = document.getElementById("create-improvement");
 
 if (window.addEventListener) {
     window.addEventListener("load", init, false);
