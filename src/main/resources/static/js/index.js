@@ -20,19 +20,55 @@ function createForm() {
 
 	form.id = "displaySingle";
 
-	let customerDiv = inputComponent("Customer_Name", "one-twenty", "","form-div-left");
-	let partNumberDiv = inputComponent("Part_Number", "one-twenty", "","form-div-left");
-	let improvementTypeDiv = dropDownComponent("Improvement Type", "one-sixty", "", "form-div-right");
-	let materialTypeDiv = dropDownComponent("Material Type", "","","form-div-right", []);
-	let problemDiv = textAreaComponent("Problem Description", "","","form-div-right", []);
-	let solutionDiv = textAreaComponent("Solution", "","","form-div-right", "");
-	let conclusionDiv = textAreaComponent("Conclusion", "","","form-div-right", "");
-	//append the children elements
-	//form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv,descriptionDiv,solutionDiv, resultDiv, button);
+	let customerDiv = inputComponent("Customer Name", "one-twenty", "","form-div-left");
+	let partNumberDiv = inputComponent("Part Number", "one-twenty", "","form-div-left");
+	let improvementTypeDiv = dropDownComponent("Improvement Type", "one-sixty", "", "form-div-right", ["test imp 1", "test imp 2", "test imp 3"]);
+	let materialTypeDiv = dropDownComponent("Material Type", "one-twenty","","form-div-right ", ["test material 1", "test material 2", "test material 3"]);
+	let departmentDiv = dropDownComponent("Department", "one-twenty","","form-div-right ", ["test department 1", "test department 2", "test department 3"]);
+	let problemDiv = textAreaComponent("Problem Description", "one-sixty","form-textarea","text-area-div");
+	let solutionDiv = textAreaComponent("Solution", "one-sixty","form-textarea","", "text-area-div");
+	let conclusionDiv = textAreaComponent("Conclusion", "one-sixty","form-textarea","", "text-area-div");
 	let button = document.createElement("button")
 	button.innerText = "Submit";
 	button.id = "submit-button";
-	form.append(customerDiv, improvementTypeDiv, partNumberDiv, materialTypeDiv, problemDiv, solutionDiv, conclusionDiv, button);
+	button.style.paddingTop = "25px";
+	button.click(function (){
+		$.post("demo_test_post.asp",
+			{
+			//need to add department to the improvement page
+			//need to connect the form to this method to handle post to put the results in the db
+			//add trigger to db
+			/*department: {
+
+            name: document.getElementById();
+        },
+        "customer": {
+            "customer_id": 1,
+            "customerName": "customer1"
+        },
+        "part": {
+            "partNumber": "part1",
+            "material": {
+                "materialType": "material1",
+                "id": 1
+            },
+            "id": 1
+        },
+        "improvementType": {
+            "improvementType": "process",
+            "improvement_id": 2
+        },
+        "description": "a problem",
+        "solution": "fixed the problem",
+        "result": "fine"
+				 */
+			},
+			function(data, status){
+				alert("Data: " + data + "\nStatus: " + status);
+			});
+
+	})
+	form.append(customerDiv, partNumberDiv, improvementTypeDiv, departmentDiv, materialTypeDiv, problemDiv, solutionDiv, conclusionDiv, button);
 	return form;
 }
 

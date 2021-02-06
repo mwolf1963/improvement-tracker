@@ -26,6 +26,10 @@ body{
 .form-div-textbox{
   padding-top: 25px;
 }
+
+.text-area-div{
+  clear: both;
+}
 .form-textarea{
   display: block;
   width: 750px;
@@ -50,9 +54,11 @@ body{
 }
 .form-div-left{
   float: left;
+  clear: left;
 }
 .form-div-right{
   float: right;
+  clear:right;
 }
 .one-sixty{
   width: 160px;

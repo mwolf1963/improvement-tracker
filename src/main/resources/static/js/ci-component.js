@@ -9,7 +9,7 @@ function inputComponent(label, labelCssClass,inputClass, divCssClass){
     let inputLabel = document.createElement("label");
     inputLabel.id = label.toLowerCase() + "_label_id";
     inputLabel.innerText = label.replace("_", " ");
-    inputLabel.className = inputClass;
+    inputLabel.className = labelCssClass;
     let input = document.createElement("input");
     input.id = label.toLowerCase() + "_input_id";
     div.append(inputLabel, input);
@@ -21,7 +21,7 @@ function textAreaComponent(label, labelCssClass, textAreaCssClass, divCssClass){
     let div = document.createElement("div");
     div.className = divCssClass;
     let inputLabel = document.createElement("label");
-    inputLabel.id = label.toLowerCase() + "_label_id";
+    inputLabel.id = label.toLowerCase().replace(" ", "_") + "_label_id";
     inputLabel.innerText = label.replace("_", " ");
     inputLabel.className = labelCssClass;
     let input = document.createElement("textarea");
@@ -35,16 +35,19 @@ function textAreaComponent(label, labelCssClass, textAreaCssClass, divCssClass){
 function dropDownComponent(label, labelCssClass, dropDownCssClass, divCssClass, list){
     let div = document.createElement("div");
     div.className = divCssClass;
-    let inputLabel = document.createElement("label");
-    inputLabel.id = label.toLowerCase() + "_label_id";
-    inputLabel.innerText = label.replace("_", " ");
-    inputLabel.className = labelCssClass;
+    let selectLabel = document.createElement("label");
+    selectLabel.id = label.toLowerCase() + "_label_id";
+    selectLabel.innerText = label.replace("_", " ");
+    selectLabel.className = labelCssClass;
     let select = document.createElement("select");
-    select.id = label.toLowerCase() + "_selcet_id";
+    select.id = label.toLowerCase() + "_select_id";
     select.className = dropDownCssClass;
     for(let i = 0; i < list.length; i++){
         let opt = document.createElement("option");
         opt.value = list[i];
-        improvementTypeField.appendChild(opt);
+        opt.text = list[i].replace("_", " ");
+        select.appendChild(opt);
     }
+    div.append(selectLabel, select);
+    return div;
 }
