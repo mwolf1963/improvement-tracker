@@ -13,39 +13,6 @@ function init(){
 
     console.log("after calling getIndexImprovements");
 }
-
-function postImprovement(){
-		$.post("/api/v1/improvements",
-			{
-				//need to add department to the improvement page
-				//need to connect the form to this method to handle post to put the results in the db
-				//add trigger to db
-				"department": {
-					"name": document.getElementById("department_select_id").value
-				},
-				"customer": {
-
-					"customerName": document.getElementById("customer_name_input_id").innerText
-				},
-				"part": {
-					"material": {
-						"materialType": document.getElementById("material_type_select_id").value
-
-					},
-				},
-				"improvementType": {
-					"improvementType": document.getElementById("improvement_type_select_id").value
-
-				},
-				"description": document.getElementById("problem_text_area").innerText,
-				"solution": document.getElementById("solution_text_area").innerText,
-				"result": document.getElementById("conclusion_text_area").innerText
-
-			},
-			function(data, status){
-				alert("Data: " + data + "\nStatus: " + status);
-			});
-	}
 function createForm() {
 	let materialArray = new Map();
 	let impTypeArray = new Map();
@@ -89,7 +56,35 @@ function createForm() {
 	form.method = "POST";
 	form.onsubmit = function (e){
 		e.preventDefault();
-	}
+		console.log("in onsubmit. the form has been prevented from submiting");
+		$.post("/api/v1/improvements",
+			{
+				"department": {
+					"name": document.getElementById("department_select_id").value
+				},
+				"customer": {
+
+					"customerName": document.getElementById("customer_name_input_id").value
+				},
+				"part": {
+					"material": {
+						"materialType": document.getElementById("material_type_select_id").value
+
+					},
+				},
+				"improvementType": {
+					"improvementType": document.getElementById("improvement_type_select_id").value
+
+				},
+				"description": document.getElementById("problem_textarea_id").value,
+				"solution": document.getElementById("solution_textarea_id").value,
+				"result": document.getElementById("conclusion_textarea_id").value
+
+			},
+			function(data, status){
+				alert("Data: " + data + "\nStatus: " + status);
+			});}
+
 	form.id = "displaySingle";
 	form.className= "container";
 	let topRow = document.createElement("div");

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.github.mwolf1963.improvementtracker.repositories.CustomerRepository;
+import com.github.mwolf1963.improvementtracker.repositories.MaterialRepository;
+import com.github.mwolf1963.improvementtracker.repositories.PartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,10 @@ import com.github.mwolf1963.improvementtracker.repositories.ImprovementRepositor
 public class ImprovementController {
 	@Autowired
 	private ImprovementRepository improvementRepository;
+	@Autowired
+    CustomerRepository customerRepository;
+	@Autowired
+    PartRepository partRepository;
     @GetMapping
     public List<Improvement> list(){
     	System.out.println("in the getimprovements API");
@@ -31,6 +38,8 @@ public class ImprovementController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public  void  create(@RequestBody Improvement improvement){
+        customerRepository.save(improvement.getCustomer());
+        partRepository.save(improvement.getPart());
     	improvementRepository.save(improvement);
     }
     
