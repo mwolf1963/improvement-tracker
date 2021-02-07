@@ -14,61 +14,112 @@ function init(){
     console.log("after calling getIndexImprovements");
 }
 
-
-function createForm() {
-	let form = document.createElement("form");
-
-	form.id = "displaySingle";
-
-	let customerDiv = inputComponent("Customer Name", "one-twenty", "","form-div-left");
-	let partNumberDiv = inputComponent("Part Number", "one-twenty", "","form-div-left");
-	let improvementTypeDiv = dropDownComponent("Improvement Type", "one-sixty", "", "form-div-right", ["test imp 1", "test imp 2", "test imp 3"]);
-	let materialTypeDiv = dropDownComponent("Material Type", "one-twenty","","form-div-right ", ["test material 1", "test material 2", "test material 3"]);
-	let departmentDiv = dropDownComponent("Department", "one-twenty","","form-div-right ", ["test department 1", "test department 2", "test department 3"]);
-	let problemDiv = textAreaComponent("Problem Description", "one-sixty","form-textarea","text-area-div");
-	let solutionDiv = textAreaComponent("Solution", "one-sixty","form-textarea","", "text-area-div");
-	let conclusionDiv = textAreaComponent("Conclusion", "one-sixty","form-textarea","", "text-area-div");
-	let button = document.createElement("button")
-	button.innerText = "Submit";
-	button.id = "submit-button";
-	button.style.paddingTop = "25px";
-	button.click(function (){
-		$.post("demo_test_post.asp",
+function postImprovement(){
+		$.post("/api/v1/improvements",
 			{
-			//need to add department to the improvement page
-			//need to connect the form to this method to handle post to put the results in the db
-			//add trigger to db
-			/*department: {
+				//need to add department to the improvement page
+				//need to connect the form to this method to handle post to put the results in the db
+				//add trigger to db
+				"department": {
+					"name": document.getElementById("department_select_id").value
+				},
+				"customer": {
 
-            name: document.getElementById();
-        },
-        "customer": {
-            "customer_id": 1,
-            "customerName": "customer1"
-        },
-        "part": {
-            "partNumber": "part1",
-            "material": {
-                "materialType": "material1",
-                "id": 1
-            },
-            "id": 1
-        },
-        "improvementType": {
-            "improvementType": "process",
-            "improvement_id": 2
-        },
-        "description": "a problem",
-        "solution": "fixed the problem",
-        "result": "fine"
-				 */
+					"customerName": document.getElementById("customer_name_input_id").innerText
+				},
+				"part": {
+					"material": {
+						"materialType": document.getElementById("material_type_select_id").value
+
+					},
+				},
+				"improvementType": {
+					"improvementType": document.getElementById("improvement_type_select_id").value
+
+				},
+				"description": document.getElementById("problem_text_area").innerText,
+				"solution": document.getElementById("solution_text_area").innerText,
+				"result": document.getElementById("conclusion_text_area").innerText
+
 			},
 			function(data, status){
 				alert("Data: " + data + "\nStatus: " + status);
 			});
+	}
+function createForm() {
+	let materialArray = new Map();
+	let impTypeArray = new Map();
+	let departmentArray = new Map();
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: "/api/v1/materials",
+		success: function(data, status) {
+			for (let i = 0; i < data.length; i++){
+				let key = data[i].id;
+				let value = data[i].materialType;
+				materialArray.set(key, value);
+			}
+		}});
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: "/api/v1/departments",
+		success: function(data, status){
+			for (let i = 0; i < data.length; i++){
+				let key = data[i].department_id;
+				let value = data[i].name;
+				departmentArray.set(key, value) ;
+			}
 
-	})
-	form.append(customerDiv, partNumberDiv, improvementTypeDiv, departmentDiv, materialTypeDiv, problemDiv, solutionDiv, conclusionDiv, button);
+	}});
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url:"/api/v1/improvementTypes",
+		success: function(data, status) {
+			for (let i = 0; i < data.length; i++){
+				let key = data[i].improvement_id;
+				let value = data[i].improvementType;
+				impTypeArray.set(key, value) ;
+			}
+		}});
+
+	let form = document.createElement("form");
+	form.method = "POST";
+	form.onsubmit = function (e){
+		e.preventDefault();
+	}
+	form.id = "displaySingle";
+	form.className= "container";
+	let topRow = document.createElement("div");
+	let middleRow = document.createElement("div");
+	let bottomRow = document.createElement("div");
+	topRow.className = "row";
+	middleRow.className = "row";
+	bottomRow.className = "row";
+
+	let customerDiv = inputComponent("Customer Name", "one-twenty", "","col-6");
+	let improvementTypeDiv = dropDownComponent("Improvement Type", "one-sixty", "one-sixty", "col-6", impTypeArray);
+	topRow.append(customerDiv, improvementTypeDiv);
+	let partNumberDiv = inputComponent("Part Number", "one-twenty", "","col-6");
+	let materialTypeDiv = dropDownComponent("Material Type", "one-sixty","one-sixty","col-6", materialArray);
+	middleRow.append(partNumberDiv, materialTypeDiv);
+	let departmentDiv = dropDownComponent("Department", "one-sixty","one-sixty"," offset-6 col-6 ", departmentArray);
+	bottomRow.append(departmentDiv);
+	let problemDiv = textAreaComponent("Problem", "one-sixty","form-textarea","text-area-div");
+	let solutionDiv = textAreaComponent("Solution", "one-sixty","form-textarea","", "text-area-div");
+	let conclusionDiv = textAreaComponent("Conclusion", "one-sixty","form-textarea","", "text-area-div");
+	let buttonDiv = document.createElement("div");
+	buttonDiv.className = "row";
+	let button = document.createElement("button")
+	button.innerText = "Submit";
+	button.type = "submit";
+	button.id = "submit-button";
+	button.style.marginTop = "25px";
+	button.className = "offset-8";
+	buttonDiv.append(button);
+	form.append(topRow, middleRow, bottomRow, problemDiv, solutionDiv, conclusionDiv, buttonDiv);
 	return form;
 }
 
@@ -293,12 +344,12 @@ function getIndexImprovements(){
 	return ajaxDisplay;*/
 }
 //global vars
-let createMI = document.getElementById("create-improvement");
+let createIm = document.getElementById("create-improvement");
 
 if (window.addEventListener) {
     window.addEventListener("load", init, false);
-    createMI.addEventListener("click", createImprovementView, false);
+    createIm.addEventListener("click", createImprovementView, false);
 } else if (window.attachEvent) {
     window.attachEvent("onload", init);
-    createMI.attachEvent("onclick", createImprovementView);
+    createIm.attachEvent("onclick", createImprovementView);
 }

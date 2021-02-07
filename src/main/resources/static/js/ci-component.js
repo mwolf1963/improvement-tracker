@@ -11,7 +11,7 @@ function inputComponent(label, labelCssClass,inputClass, divCssClass){
     inputLabel.innerText = label.replace("_", " ");
     inputLabel.className = labelCssClass;
     let input = document.createElement("input");
-    input.id = label.toLowerCase() + "_input_id";
+    input.id = label.toLowerCase().replace(" ", "_") + "_input_id";
     div.append(inputLabel, input);
     return div;
 }
@@ -25,14 +25,14 @@ function textAreaComponent(label, labelCssClass, textAreaCssClass, divCssClass){
     inputLabel.innerText = label.replace("_", " ");
     inputLabel.className = labelCssClass;
     let input = document.createElement("textarea");
-    input.id = label.toLowerCase() + "_textarea_id";
+    input.id = label.toLowerCase().replace(" ", "_") + "_textarea_id";
     input.className = textAreaCssClass;
     div.append(inputLabel, input);
     return div;
 }
 
 //returns a div
-function dropDownComponent(label, labelCssClass, dropDownCssClass, divCssClass, list){
+function dropDownComponent(label, labelCssClass, dropDownCssClass, divCssClass, map){
     let div = document.createElement("div");
     div.className = divCssClass;
     let selectLabel = document.createElement("label");
@@ -40,12 +40,13 @@ function dropDownComponent(label, labelCssClass, dropDownCssClass, divCssClass, 
     selectLabel.innerText = label.replace("_", " ");
     selectLabel.className = labelCssClass;
     let select = document.createElement("select");
-    select.id = label.toLowerCase() + "_select_id";
+    select.id = label.toLowerCase().replace(" ", "_") + "_select_id";
     select.className = dropDownCssClass;
-    for(let i = 0; i < list.length; i++){
+    for(let [key, value] of map){
+        console.log("Key: " + key + " and Value: " + value);
         let opt = document.createElement("option");
-        opt.value = list[i];
-        opt.text = list[i].replace("_", " ");
+        opt.value = key;
+        opt.text = value.replace("_", " ");
         select.appendChild(opt);
     }
     div.append(selectLabel, select);
