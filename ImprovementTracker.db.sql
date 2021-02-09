@@ -46,23 +46,54 @@ CREATE TABLE IF NOT EXISTS "parts" (
 	"material_id"	integer NOT NULL,
 	PRIMARY KEY("part_id")
 );
-INSERT INTO "customers" ("customer_id","customer_name") VALUES (1,'Customer 1');
-INSERT INTO "customers" ("customer_id","customer_name") VALUES (2,'Customer 3');
-INSERT INTO "customers" ("customer_id","customer_name") VALUES (3,'Customer 4');
-INSERT INTO "customers" ("customer_id","customer_name") VALUES (4,'Customer 5');
-INSERT INTO "customers" ("customer_id","customer_name") VALUES (19,'Customer 6');
-INSERT INTO "departments" ("department_id","name") VALUES (6,'department1');
-INSERT INTO "departments" ("department_id","name") VALUES (7,'department2');
-INSERT INTO "departments" ("department_id","name") VALUES (8,'department3');
-INSERT INTO "departments" ("department_id","name") VALUES (9,'department4');
-INSERT INTO "departments" ("department_id","name") VALUES (10,'department5');
-INSERT INTO "hibernate_sequence" ("next_val") VALUES (1);
-INSERT INTO "hibernate_sequence" ("next_val") VALUES (20);
-INSERT INTO "improvement_types" ("improvement_type_id","improvement_type") VALUES (16,'"type 1"');
-INSERT INTO "improvement_types" ("improvement_type_id","improvement_type") VALUES (17,'"type 2"');
-INSERT INTO "materials" ("material_id","material_type") VALUES (1,'material123');
-INSERT INTO "materials" ("material_id","material_type") VALUES (2,'material124');
-INSERT INTO "materials" ("material_id","material_type") VALUES (3,'material1135');
-INSERT INTO "materials" ("material_id","material_type") VALUES (4,'material1100');
-INSERT INTO "materials" ("material_id","material_type") VALUES (5,'material11290');
+INSERT INTO "customers" ("customer_id","customer_name") VALUES (1,'customer1');
+INSERT INTO "customers" ("customer_id","customer_name") VALUES (100,'done in sql');
+INSERT INTO "departments" ("department_id","name") VALUES (3,'department1');
+INSERT INTO "departments" ("department_id","name") VALUES (14,'department1');
+INSERT INTO "departments" ("department_id","name") VALUES (20,'department1');
+INSERT INTO "hibernate_sequence" ("next_val") VALUES (26);
+INSERT INTO "improvements" ("improvement_id","description","result","solution","customer_id","department_id","improvement_type_id","id") VALUES (6,'a problem','this improvement was added using postman while trouble shooting stupid js','fixed the problem',1,3,5,4);
+INSERT INTO "improvements" ("improvement_id","description","result","solution","customer_id","department_id","improvement_type_id","id") VALUES (17,'a problem','this improvement was added using postman while trouble shooting stupid js','fixed the problem',12,14,16,15);
+INSERT INTO "improvements" ("improvement_id","description","result","solution","customer_id","department_id","improvement_type_id","id") VALUES (23,'a problem','this improvement was added using postman while trouble shooting stupid js','fixed the problem',18,20,22,21);
+INSERT INTO "improvement_types" ("improvement_type_id","improvement_type") VALUES (5,'process');
+INSERT INTO "improvement_types" ("improvement_type_id","improvement_type") VALUES (16,'process');
+INSERT INTO "improvement_types" ("improvement_type_id","improvement_type") VALUES (22,'process');
+INSERT INTO "materials" ("material_id","material_type") VALUES (2,'material123');
+INSERT INTO "materials" ("material_id","material_type") VALUES (13,'material123');
+INSERT INTO "materials" ("material_id","material_type") VALUES (19,'material123');
+INSERT INTO "parts" ("part_id","part_number","material_id") VALUES (4,'part1',2);
+INSERT INTO "parts" ("part_id","part_number","material_id") VALUES (15,'part1',13);
+INSERT INTO "parts" ("part_id","part_number","material_id") VALUES (21,'part1',19);
+CREATE TRIGGER customerExists
+BEFORE INSERT ON customers
+FOR EACH ROW
+WHEN (EXISTS(SELECT * FROM customers WHERE customer_name = NEW.customer_name))
+BEGIN
+	SELECT RAISE(ABORT,  "This customer already exsists");
+
+END;
+CREATE TRIGGER departmentExists
+BEFORE INSERT ON departments
+FOR EACH ROW
+WHEN (EXISTS(SELECT * FROM departments WHERE name = NEW.name))
+BEGIN
+	SELECT RAISE(ABORT,  "This department already exsists");
+
+END;
+CREATE TRIGGER materialExists
+BEFORE INSERT ON materials
+FOR EACH ROW
+WHEN (EXISTS(SELECT * FROM materials WHERE material_type = NEW.material_type))
+BEGIN
+	SELECT RAISE(ABORT,  "This material type already exsists");
+
+END;
+CREATE TRIGGER improvementTypeExsists
+BEFORE INSERT ON improvement_types
+FOR EACH ROW
+WHEN (EXISTS(SELECT * FROM improvement_types WHERE improvement_type = NEW.improvement_type))
+BEGIN
+	SELECT RAISE(ABORT,  "This improvement type already exsists");
+
+END;
 COMMIT;

@@ -12,6 +12,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int customer_id;
+
     private String customerName;
 
     public int getCustomer_id() {

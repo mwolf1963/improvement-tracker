@@ -13,6 +13,36 @@ function init(){
 
     console.log("after calling getIndexImprovements");
 }
+
+function getSubmission(){
+	/* this is what i think the form data needs to look like. refactor and return to caller.
+
+	'{
+		"department": {
+			"name": document.getElementById("department_select_id").value
+		},
+		"customer": {
+
+			"customerName": document.getElementById("customer_name_input_id").value
+		},
+		"part": {
+			"material": {
+				"materialType": document.getElementById("material_type_select_id").value
+
+			},
+		},
+		"improvementType": {
+			"improvementType": document.getElementById("improvement_type_select_id").value
+
+		},
+		"description": document.getElementById("problem_textarea_id").value,
+			"solution": document.getElementById("solution_textarea_id").value,
+			"result": document.getElementById("conclusion_textarea_id").value
+
+	}')
+	 */
+}
+
 function createForm() {
 	let materialArray = new Map();
 	let impTypeArray = new Map();
@@ -55,35 +85,20 @@ function createForm() {
 	let form = document.createElement("form");
 	form.method = "POST";
 	form.onsubmit = function (e){
+		let formData = getSubmission();
+
 		e.preventDefault();
 		console.log("in onsubmit. the form has been prevented from submiting");
-		$.post("/api/v1/improvements",
-			{
-				"department": {
-					"name": document.getElementById("department_select_id").value
-				},
-				"customer": {
-
-					"customerName": document.getElementById("customer_name_input_id").value
-				},
-				"part": {
-					"material": {
-						"materialType": document.getElementById("material_type_select_id").value
-
-					},
-				},
-				"improvementType": {
-					"improvementType": document.getElementById("improvement_type_select_id").value
-
-				},
-				"description": document.getElementById("problem_textarea_id").value,
-				"solution": document.getElementById("solution_textarea_id").value,
-				"result": document.getElementById("conclusion_textarea_id").value
-
-			},
-			function(data, status){
+		$.ajax({
+			url:"/api/v1/improvements",
+			type:"POST",
+			data : JSON.stringify(formData),
+			contentType:"application/json; charset=utf-8",
+			dataType:"json",
+			success: function(data, status){
 				alert("Data: " + data + "\nStatus: " + status);
-			});}
+			}});
+		}
 
 	form.id = "displaySingle";
 	form.className= "container";
