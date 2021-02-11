@@ -3,12 +3,7 @@ package com.github.mwolf1963.improvementtracker.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,7 +17,7 @@ public class Material {
 	
 	@OneToMany(mappedBy="material")
     private List<Part> parts = new ArrayList<>();
-	
+	@Column(name="material_type")
 	private String materialType;
 	
 	public Material() {}

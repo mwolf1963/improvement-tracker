@@ -47,7 +47,7 @@ public class ImprovementController {
         } catch ( Exception ex){
             System.out.println("Exception caught: " + ex);
         }
-        materialRepository.save(improvement.getPart().getMaterial());
+        //materialRepository.save(improvement.getPart().getMaterial());
         departmentRepository.save(improvement.getDepartment());
         partRepository.save(improvement.getPart());
         improvementTypeRepository.save(improvement.getImprovementType());
