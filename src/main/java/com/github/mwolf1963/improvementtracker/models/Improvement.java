@@ -3,9 +3,13 @@ package com.github.mwolf1963.improvementtracker.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.SQLInsert;
+import org.springframework.objenesis.instantiator.annotations.Instantiator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name= "improvements")
@@ -115,5 +119,6 @@ public class Improvement {
     public void setResult(String result) {
         this.result = result;
     }
+
 }
 

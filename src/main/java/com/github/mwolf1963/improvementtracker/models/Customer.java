@@ -30,4 +30,9 @@ public class Customer {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+    
+    @Override
+    public String toString() {
+    	return "Customer ID: " + this.customer_id + "\n Customer Name : " + this.customerName + "\n";
+    }
 }

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 
 import com.github.mwolf1963.improvementtracker.models.Customer;
+import com.github.mwolf1963.improvementtracker.models.Department;
+import com.github.mwolf1963.improvementtracker.models.ImprovementType;
 import com.github.mwolf1963.improvementtracker.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,15 +44,16 @@ public class ImprovementController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public  void  create(@RequestBody Improvement improvement){
-        try {
-            customerRepository.save(improvement.getCustomer());
-        } catch ( Exception ex){
-            System.out.println("Exception caught: " + ex);
+        System.out.println("Department id: " +improvement.getDepartment().getDepartment_id());
+        System.out.println("Department name: " +improvement.getDepartment().getName());
+        System.out.println("Customer id: " +improvement.getCustomer().getCustomer_id());
+        System.out.println("Customer name: " +improvement.getCustomer().getCustomerName());
+        List<ImprovementType> impTypeList = improvementTypeRepository.findAll();
+        for (int i = 0; i < impTypeList.size(); i++){
+            System.out.println(impTypeList.get(i).getImprovement_id());
         }
-        //materialRepository.save(improvement.getPart().getMaterial());
-        departmentRepository.save(improvement.getDepartment());
-        partRepository.save(improvement.getPart());
-        improvementTypeRepository.save(improvement.getImprovementType());
+        ImprovementType impType = new ImprovementType();
+
     	improvementRepository.save(improvement);
     }
     
