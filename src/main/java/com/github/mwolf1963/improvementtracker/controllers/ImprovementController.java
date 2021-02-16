@@ -7,6 +7,8 @@ import java.util.Optional;
 import com.github.mwolf1963.improvementtracker.models.Customer;
 import com.github.mwolf1963.improvementtracker.models.Department;
 import com.github.mwolf1963.improvementtracker.models.ImprovementType;
+import com.github.mwolf1963.improvementtracker.models.Material;
+import com.github.mwolf1963.improvementtracker.models.Part;
 import com.github.mwolf1963.improvementtracker.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,21 +46,32 @@ public class ImprovementController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public  void  create(@RequestBody Improvement improvement){
-        System.out.println("Department id: " +improvement.getDepartment().getDepartment_id());
-        System.out.println("Department name: " +improvement.getDepartment().getName());
-        System.out.println("Customer id: " +improvement.getCustomer().getCustomer_id());
-        System.out.println("Customer name: " +improvement.getCustomer().getCustomerName());
-        List<ImprovementType> impTypeList = improvementTypeRepository.findAll();
-        for (int i = 0; i < impTypeList.size(); i++){
-            System.out.println(impTypeList.get(i).getImprovement_id());
-        }
-        ImprovementType impType = new ImprovementType();
-
-    	improvementRepository.save(improvement);
+    	//just to prove we are getting an improvement
+    	System.out.println(improvement.getDescription());
+    	System.out.println(improvement.getPart().getMaterial().getId());
+    	//save anything that is new to the database
+    	improvement.setDepartment(departmentRepository.saveAndFlush(improvement.getDepartment()));
+    	improvement.setCustomer(customerRepository.saveAndFlush(improvement.getCustomer()));
+    	improvement.setImprovementType(improvementTypeRepository.saveAndFlush(improvement.getImprovementType()));
+    	Material mat =materialRepository.saveAndFlush(improvement.getPart().getMaterial());
+    	System.out.println(mat.getId());
+    	
+    	Part part = partRepository.getOneByPartNumber(improvement.getPart().getPartNumber());
+    	if(part == null) {
+    		System.out.println("in part == null");
+    		improvement.getPart().setMaterial(mat);
+    		partRepository.saveAndFlush(improvement.getPart());
+    		
+    	} else {
+    		System.out.println("in else");
+    		improvement.setPart(part);
+    	}
+    	
     }
     
     @GetMapping("/{id}")
     public Optional<Improvement> get(@PathVariable("id") int id){
         return improvementRepository.findById(id);
     }
+    
 }

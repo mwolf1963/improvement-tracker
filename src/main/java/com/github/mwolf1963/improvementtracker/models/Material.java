@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="materials")
 @JsonIgnoreProperties({"hibernateLayInitializer", "handler", "parts"})
-public class Material extends AbstractEntity {
+public class Material{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int material_id;
@@ -23,7 +23,7 @@ public class Material extends AbstractEntity {
 	public Material() {}
 	
 	// this has not been tested since extending the super class. may or may not work
-	public Object getId() {
+	public int getId() {
 		return material_id;
 	}
 	public void setId(int id) {
