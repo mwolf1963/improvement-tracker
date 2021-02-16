@@ -60,8 +60,8 @@ function createForm() {
 	let form = document.createElement("form");
 	form.method = "POST";
 	form.onsubmit = function (e){
-		const formData = new Improvement();
-		console.log(formData.customer);
+		let formData = new Improvement();
+		console.log(formData.customer.customerName);
 		e.preventDefault();
 		console.log("in onsubmit. the form has been prevented from submiting");
 		/*$.ajax({
