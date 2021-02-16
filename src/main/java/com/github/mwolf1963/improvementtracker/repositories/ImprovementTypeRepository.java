@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ImprovementTypeRepository extends JpaRepository<ImprovementType, Integer> {
+	ImprovementType getOneByImprovementType(String type);
 }

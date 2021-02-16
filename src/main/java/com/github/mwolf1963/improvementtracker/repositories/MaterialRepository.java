@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.github.mwolf1963.improvementtracker.models.Material;
 
 public interface MaterialRepository extends JpaRepository<Material, Integer> {
+	Material getOneByMaterialType(String type);
 
 }

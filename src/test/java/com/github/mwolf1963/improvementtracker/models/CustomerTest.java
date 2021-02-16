@@ -18,7 +18,7 @@ class CustomerTest {
 	private CustomerRepository customerRepo;
 	
 	@Test
-	public void testFindOne() throws Exception{
+	public void testFindAll() throws Exception{
 		List<Customer> customers = customerRepo.findAll();
 		assertTrue(customers.size() >0);
 	}
