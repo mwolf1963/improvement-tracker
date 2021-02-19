@@ -64,15 +64,15 @@ function createForm() {
 		console.log(formData.customer.customerName);
 		e.preventDefault();
 		console.log("in onsubmit. the form has been prevented from submiting");
-		/*$.ajax({
+		$.ajax({
 			url:"/api/v1/improvements",
 			type:"POST",
-			data : JSON.stringify(),
+			data : JSON.stringify(formData),
 			contentType:"application/json; charset=utf-8",
 			dataType:"json",
 			success: function(data, status){
 				alert("Data: " + data + "\nStatus: " + status);
-			}});*/
+			}});
 		}
 
 	form.id = "displaySingle";
