@@ -15,32 +15,7 @@ function init(){
 }
 
 function getSubmission(){
-	/* this is what i think the form data needs to look like. refactor and return to caller.
-
-	'{
-		"department": {
-			"name": document.getElementById("department_select_id").value
-		},
-		"customer": {
-
-			"customerName": document.getElementById("customer_name_input_id").value
-		},
-		"part": {
-			"material": {
-				"materialType": document.getElementById("material_type_select_id").value
-
-			},
-		},
-		"improvementType": {
-			"improvementType": document.getElementById("improvement_type_select_id").value
-
-		},
-		"description": document.getElementById("problem_textarea_id").value,
-			"solution": document.getElementById("solution_textarea_id").value,
-			"result": document.getElementById("conclusion_textarea_id").value
-
-	}')
-	 */
+	
 }
 
 function createForm() {
@@ -85,8 +60,8 @@ function createForm() {
 	let form = document.createElement("form");
 	form.method = "POST";
 	form.onsubmit = function (e){
-		let formData = getSubmission();
-
+		let formData = new Improvement();
+		console.log(formData.customer.customerName);
 		e.preventDefault();
 		console.log("in onsubmit. the form has been prevented from submiting");
 		$.ajax({
@@ -96,8 +71,14 @@ function createForm() {
 			contentType:"application/json; charset=utf-8",
 			dataType:"json",
 			success: function(data, status){
-				alert("Data: " + data + "\nStatus: " + status);
-			}});
+				console.log("in the success");
+				console.log("data: " + data);
+				console.log("status: " + status);
+			}}).done(function(){
+				let content = document.getElementById("ajax_content");
+				content.innerHTML = "";
+				content.innerHTML = "<h2>Improvement added to DataBase";
+			};
 		}
 
 	form.id = "displaySingle";
