@@ -71,8 +71,14 @@ function createForm() {
 			contentType:"application/json; charset=utf-8",
 			dataType:"json",
 			success: function(data, status){
-				alert("Data: " + data + "\nStatus: " + status);
-			}});
+				console.log("in the success");
+				console.log("data: " + data);
+				console.log("status: " + status);
+			}}).done(function(){
+				let content = document.getElementById("ajax_content");
+				content.innerHTML = "";
+				content.innerHTML = "<h2>Improvement added to DataBase";
+			};
 		}
 
 	form.id = "displaySingle";

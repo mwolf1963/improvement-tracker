@@ -40,5 +40,8 @@ class Improvement {
 	this.customer = new Customer();
 	this.part = new Part();
 	this.improvementType = new ImprovementType();
+	this.description = document.getElementById("problem_textarea_id").value;
+	this.solution = document.getElementById("solution_textarea_id").value;
+	this.result = document.getElementById("conclusion_textarea_id").value;
 	}
 }

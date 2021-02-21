@@ -66,7 +66,7 @@ public class ImprovementController {
     		System.out.println("in else");
     		improvement.setPart(part);
     	}
-    	
+    	improvementRepository.saveAndFlush(improvement);
     }
     
     @GetMapping("/{id}")
