@@ -75,10 +75,11 @@ function createForm() {
 				console.log("data: " + data);
 				console.log("status: " + status);
 			}}).done(function(){
-				let content = document.getElementById("ajax_content");
-				content.innerHTML = "";
-				content.innerHTML = "<h2>Improvement added to DataBase";
+
 			});
+		let content = document.getElementById("ajax_content");
+		content.innerHTML = "";
+		content.innerHTML = "<h2>Improvement added to DataBase";
 		}
 
 	form.id = "displaySingle";
