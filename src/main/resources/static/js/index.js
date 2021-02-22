@@ -78,7 +78,7 @@ function createForm() {
 				let content = document.getElementById("ajax_content");
 				content.innerHTML = "";
 				content.innerHTML = "<h2>Improvement added to DataBase";
-			};
+			});
 		}
 
 	form.id = "displaySingle";
