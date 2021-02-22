@@ -79,7 +79,7 @@ function createForm() {
 			});
 		let content = document.getElementById("ajax_content");
 		content.innerHTML = "";
-		content.innerHTML = "<h2>Improvement added to DataBase";
+		content.innerHTML = "<h2>Improvement added to DataBase</h2><a class=\"nav-link text-dark link\" id=\"create-improvement\" href='index.html'>Back to home</a>";
 		}
 
 	form.id = "displaySingle";
@@ -124,7 +124,7 @@ function createImprovementView() {
 
 function getAjaxFunctionAnImprovement(path) {
 	console.log("in getAjaxFunction");
-	var ajaxRequest;	//The variable that makes all the magic possible
+	/*var ajaxRequest;	//The variable that makes all the magic possible
 
 	try {
 		//Real Browsers
@@ -193,11 +193,60 @@ function getAjaxFunctionAnImprovement(path) {
 	}
 		ajaxRequest.open("GET", path, true);
 		ajaxRequest.send(null);
-		console.log("end of getAnImprovement");
+		console.log("end of getAnImprovement");*/
+
+
+		//start of refactor
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: path,
+		success: function(data, status){
+			let displayArray = JSON.parse(data);
+			createImprovementView();
+
+			let customerNameDisplay = document.getElementById("customerNameField");
+			customerNameDisplay.value = displayArray.customer.customerName;
+			customerNameDisplay.className += " style-disabled";
+			customerNameDisplay.disabled = true;
+
+			let improvementTypeDisplay = document.getElementById("improvementTypeField");
+			improvementTypeDisplay.value = displayArray.improvementType.improvementType;
+			improvementTypeDisplay.className += " style-disabled";
+			improvementTypeDisplay.disabled = true;
+
+			let partNumberDisplay = document.getElementById("partNumberField");
+			partNumberDisplay.value = displayArray.part.partNumber;
+			partNumberDisplay.className += " style-disabled";
+			partNumberDisplay.disabled = true;
+
+			let materialTypeDisplay = document.getElementById("material_type_" +  displayArray.part.material.id);
+			materialTypeDisplay.selected = true;
+			materialTypeDisplay.className += " style-disabled";
+			materialTypeDisplay.disabled = true;
+
+			let descDisplay = document.getElementById("descriptionTB");
+			descDisplay.value = displayArray.description;
+			descDisplay.className += " style-disabled";
+			descDisplay.disabled = true;
+
+			let solutionDisplay = document.getElementById("solutionTB");
+			solutionDisplay.value = displayArray.solution;
+			solutionDisplay.className += " style-disabled";
+			solutionDisplay.disabled = true;
+
+			let resultDisplay = document.getElementById("resultTB");
+			resultDisplay.value = displayArray.result;
+			resultDisplay.className += " style-disabled";
+			resultDisplay.disabled = true;
+
+			let button = document.getElementById("submit-button");
+			button.hidden = true;
+			}});
 
 }
 
-function getAjaxFunctionAll(url){
+/*function getAjaxFunctionAll(url){
 	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
 
@@ -233,7 +282,7 @@ function getAjaxFunctionAll(url){
 	ajaxRequest.send(null);
 	console.log("end of getIndexImprovements");
 }
-
+*/
 function getAjaxFunctionAllImprovements(path){
 	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
@@ -262,6 +311,11 @@ function getAjaxFunctionAllImprovements(path){
 
 			   let display = document.getElementById("ajax_content");
 				let displayArray = JSON.parse(ajaxRequest.responseText);
+
+				//for testing
+
+
+
 				//starting to create and append elements
 				let table = document.createElement("table");
 				table.id = "display_table";
@@ -290,12 +344,12 @@ function getAjaxFunctionAllImprovements(path){
 					let row = document.createElement("tr");
 					let viewCol = document.createElement("td");
 					let link = document.createElement("a");
-					link.id = "view_improvement_" + x;
+					link.id = "view_improvement_" + displayArray[x].improvement_id;
 					link.className = "view_improvement_link";
 					link.innerText="View";
 					link.onclick = function (){
 						let idNumber = this.id.split('_');
-						getAjaxFunctionAnImprovement("/api/v1/improvements/" + idNumber[2]);
+						getAjaxFunctionAnImprovement("/api/v1/improvements/" + displayArray[x].improvement_id);
 					};
 					let nameDisplay = document.createElement("td");
 					nameDisplay.innerText = displayArray[x].customer.customerName;
