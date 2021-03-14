@@ -115,7 +115,7 @@ function createForm() {
 	return form;
 }
 
-function createImprovementView() {
+function createEmptyImprovementView() {
 	let emptyForm = createForm();
 	let display = document.getElementById("ajax_content");
 	display.innerHTML = "";
@@ -124,7 +124,7 @@ function createImprovementView() {
 
 function getAjaxFunctionAnImprovement(path) {
 	console.log("in getAjaxFunction");
-	/*var ajaxRequest;	//The variable that makes all the magic possible
+	var ajaxRequest;	//The variable that makes all the magic possible
 
 	try {
 		//Real Browsers
@@ -149,140 +149,58 @@ function getAjaxFunctionAnImprovement(path) {
 		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200) {
 			console.log(ajaxRequest.responseText);
 			let displayArray = JSON.parse(ajaxRequest.responseText);
-			createImprovementView();
+			//this needs to return a object that we can load with the result and then append to the DOM
+			let selectionForm = createForm();
 
-			let customerNameDisplay = document.getElementById("customerNameField");
+			let customerNameDisplay = selectionForm.getElementById("customerNameField");
 			customerNameDisplay.value = displayArray.customer.customerName;
 			customerNameDisplay.className += " style-disabled";
 			customerNameDisplay.disabled = true;
 
-			let improvementTypeDisplay = document.getElementById("improvementTypeField");
+			let improvementTypeDisplay = selectionForm.getElementById("improvementTypeField");
 			improvementTypeDisplay.value = displayArray.improvementType.improvementType;
 			improvementTypeDisplay.className += " style-disabled";
 			improvementTypeDisplay.disabled = true;
 
-			let partNumberDisplay = document.getElementById("partNumberField");
+			let partNumberDisplay = selectionForm.getElementById("partNumberField");
 			partNumberDisplay.value = displayArray.part.partNumber;
 			partNumberDisplay.className += " style-disabled";
 			partNumberDisplay.disabled = true;
 
-			let materialTypeDisplay = document.getElementById("material_type_" +  displayArray.part.material.id);
+			let materialTypeDisplay = selectionForm.getElementById("material_type_" +  displayArray.part.material.id);
 			materialTypeDisplay.selected = true;
 			materialTypeDisplay.className += " style-disabled";
 			materialTypeDisplay.disabled = true;
 
-			let descDisplay = document.getElementById("descriptionTB");
+			let descDisplay = selectionForm.getElementById("descriptionTB");
 			descDisplay.value = displayArray.description;
 			descDisplay.className += " style-disabled";
 			descDisplay.disabled = true;
 
-			let solutionDisplay = document.getElementById("solutionTB");
+			let solutionDisplay = selectionForm.getElementById("solutionTB");
 			solutionDisplay.value = displayArray.solution;
 			solutionDisplay.className += " style-disabled";
 			solutionDisplay.disabled = true;
 
-			let resultDisplay = document.getElementById("resultTB");
+			let resultDisplay = selectionForm.getElementById("resultTB");
 			resultDisplay.value = displayArray.result;
 			resultDisplay.className += " style-disabled";
 			resultDisplay.disabled = true;
 
-			let button = document.getElementById("submit-button");
+			let button = selectionForm.getElementById("submit-button");
 			button.hidden = true;
+			let display = document.getElementById("ajax_content");
+			display.innerHTML = "";
+			display.appendChild(emptyForm);
+			
 		}
 
 	}
 		ajaxRequest.open("GET", path, true);
 		ajaxRequest.send(null);
-		console.log("end of getAnImprovement");*/
-
-
-		//start of refactor
-	$.ajax({
-		async: false,
-		type: 'GET',
-		url: path,
-		success: function(data, status){
-			let displayArray = JSON.parse(data);
-			createImprovementView();
-
-			let customerNameDisplay = document.getElementById("customerNameField");
-			customerNameDisplay.value = displayArray.customer.customerName;
-			customerNameDisplay.className += " style-disabled";
-			customerNameDisplay.disabled = true;
-
-			let improvementTypeDisplay = document.getElementById("improvementTypeField");
-			improvementTypeDisplay.value = displayArray.improvementType.improvementType;
-			improvementTypeDisplay.className += " style-disabled";
-			improvementTypeDisplay.disabled = true;
-
-			let partNumberDisplay = document.getElementById("partNumberField");
-			partNumberDisplay.value = displayArray.part.partNumber;
-			partNumberDisplay.className += " style-disabled";
-			partNumberDisplay.disabled = true;
-
-			let materialTypeDisplay = document.getElementById("material_type_" +  displayArray.part.material.id);
-			materialTypeDisplay.selected = true;
-			materialTypeDisplay.className += " style-disabled";
-			materialTypeDisplay.disabled = true;
-
-			let descDisplay = document.getElementById("descriptionTB");
-			descDisplay.value = displayArray.description;
-			descDisplay.className += " style-disabled";
-			descDisplay.disabled = true;
-
-			let solutionDisplay = document.getElementById("solutionTB");
-			solutionDisplay.value = displayArray.solution;
-			solutionDisplay.className += " style-disabled";
-			solutionDisplay.disabled = true;
-
-			let resultDisplay = document.getElementById("resultTB");
-			resultDisplay.value = displayArray.result;
-			resultDisplay.className += " style-disabled";
-			resultDisplay.disabled = true;
-
-			let button = document.getElementById("submit-button");
-			button.hidden = true;
-			}});
+		console.log("end of getAnImprovement");
 
 }
-
-/*function getAjaxFunctionAll(url){
-	console.log("in getAjaxFunction");
-	var ajaxRequest;	//The variable that makes all the magic possible
-
-	try{
-		//Real Browsers
-		ajaxRequest = new XMLHttpRequest();
-	} catch(e){
-		// Internet Exploder
-		try{
-			ajaxRequest = new ActiveXObject("Msxm12.XMLHTTP");
-		}catch (e){
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.ZMLHTTP");
-			} catch(e){
-				//Something went wrong
-				alert("Your browser cannot handle AJAX!");
-				return false;
-			}
-		}
-	}
-	//Create a function that will recieve data sent from the server
-	ajaxRequest.onreadystatechange = function(){
-		console.log("in ready state change function");
-		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200){
-			let displayArray = JSON.parse(ajaxRequest.responseText);
-			//starting to create and append elements
-			return displayArray;
-		} else{
-			console.log(ajaxRequest.status.toString());
-		}
-	}
-	ajaxRequest.open("GET", url,true);
-	ajaxRequest.send(null);
-	console.log("end of getIndexImprovements");
-}
-*/
 function getAjaxFunctionAllImprovements(path){
 	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
@@ -308,19 +226,12 @@ function getAjaxFunctionAllImprovements(path){
 	ajaxRequest.onreadystatechange = function(){
 		console.log("in ready state change function");
 		if (ajaxRequest.readyState === 4 && ajaxRequest.status === 200){
-
 			   let display = document.getElementById("ajax_content");
 				let displayArray = JSON.parse(ajaxRequest.responseText);
-
-				//for testing
-
-
-
 				//starting to create and append elements
 				let table = document.createElement("table");
 				table.id = "display_table";
 				let header_row = document.createElement("tr");
-
 				let viewHead = document.createElement("th")
 				viewHead.innerText = "Click to View";
 				let customerName = document.createElement("th")
@@ -331,7 +242,6 @@ function getAjaxFunctionAllImprovements(path){
 				improvementType.innerText = "Improvement Type";
 				let materialType = document.createElement("th")
 				materialType.innerText = "Material";
-
 				//attach header elements
 				header_row.appendChild(viewHead);
 				header_row.appendChild(customerName);
@@ -374,28 +284,20 @@ function getAjaxFunctionAllImprovements(path){
 			console.log(ajaxRequest.status.toString());
 		}
 	}
-
-
 	ajaxRequest.open("GET", path,true);
 	ajaxRequest.send(null);
 	console.log("end of getIndexImprovements");
 }
-
 function getIndexImprovements(){
 	console.log("in getIndexImprovements");
 	getAjaxFunctionAllImprovements("/api/v1/improvements" );
-
-	/*var ajaxDisplay =getAjaxFunctionAllImprovements("/api/v1/improvements" );
-	console.log("after getIndexImprovements");
-	return ajaxDisplay;*/
 }
-//global vars
 let createIm = document.getElementById("create-improvement");
 
 if (window.addEventListener) {
     window.addEventListener("load", init, false);
-    createIm.addEventListener("click", createImprovementView, false);
+    createIm.addEventListener("click", createEmptyImprovementView, false);
 } else if (window.attachEvent) {
     window.attachEvent("onload", init);
-    createIm.attachEvent("onclick", createImprovementView);
+    createIm.attachEvent("onclick", createEmptyImprovementView);
 }
