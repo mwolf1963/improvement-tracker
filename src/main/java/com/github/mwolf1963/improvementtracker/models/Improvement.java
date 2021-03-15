@@ -32,7 +32,7 @@ public class Improvement {
     @JoinColumn(name="image_id")
     private List<Image> images = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name="id", nullable = false)
+    @JoinColumn(name="part_id", nullable = false)
     private Part part;
     @ManyToOne
     @JoinColumn(name="improvementType_id", nullable = false)

@@ -255,12 +255,13 @@ function getAjaxFunctionAllImprovements(path){
 					let viewCol = document.createElement("td");
 					let link = document.createElement("a");
 					link.id = "view_improvement_" + displayArray[x].improvement_id;
+					link.href = "view_improvement?id=" + displayArray[x].improvement_id;
 					link.className = "view_improvement_link";
 					link.innerText="View";
-					link.onclick = function (){
+					/*link.onclick = function (){
 						let idNumber = this.id.split('_');
 						getAjaxFunctionAnImprovement("/api/v1/improvements/" + displayArray[x].improvement_id);
-					};
+					};*/
 					let nameDisplay = document.createElement("td");
 					nameDisplay.innerText = displayArray[x].customer.customerName;
 					let partDisplay = document.createElement("td");

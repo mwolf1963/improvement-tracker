@@ -2,6 +2,8 @@ package com.github.mwolf1963.improvementtracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -14,7 +16,17 @@ public class Customer {
     private int customer_id;
 
     private String customerName;
-
+    
+    @OneToMany
+    @JoinColumn(name="part_id")
+    private List<Part> parts = new ArrayList<>();
+    
+    public List<Part> getParts(){
+    	return parts;
+    }
+    public void addPart(Part part) {
+    	parts.add(part);
+    }
     public int getCustomer_id() {
         return customer_id;
     }
@@ -26,7 +38,7 @@ public class Customer {
     public String getCustomerName() {
         return customerName;
     }
-
+    
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
