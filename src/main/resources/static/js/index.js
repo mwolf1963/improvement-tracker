@@ -296,9 +296,9 @@ function getIndexImprovements(){
 let createIm = document.getElementById("create-improvement");
 
 if (window.addEventListener) {
-    window.addEventListener("load", init, false);
+    //window.addEventListener("load", init, false);
     createIm.addEventListener("click", createEmptyImprovementView, false);
 } else if (window.attachEvent) {
-    window.attachEvent("onload", init);
+    //window.attachEvent("onload", init);
     createIm.attachEvent("onclick", createEmptyImprovementView);
 }
