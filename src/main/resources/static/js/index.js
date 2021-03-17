@@ -5,14 +5,14 @@
 var improvementsArray;
 var materialsArray;
 
-function init(){
+/*function init(){
 	console.log("in init");
 	let create = document.getElementById("create-improvement");
 
 	getIndexImprovements();
 
     console.log("after calling getIndexImprovements");
-}
+}*/
 
 function getSubmission(){
 	
