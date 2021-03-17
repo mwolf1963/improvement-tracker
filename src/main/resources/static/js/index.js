@@ -14,9 +14,9 @@ var materialsArray;
     console.log("after calling getIndexImprovements");
 }*/
 
-function getSubmission(){
+/*function getSubmission(){
 	
-}
+}*/
 
 function createForm() {
 	let materialArray = new Map();
@@ -201,7 +201,7 @@ function getAjaxFunctionAnImprovement(path) {
 		console.log("end of getAnImprovement");
 
 }
-function getAjaxFunctionAllImprovements(path){
+/*function getAjaxFunctionAllImprovements(path){
 	console.log("in getAjaxFunction");
 	var ajaxRequest;	//The variable that makes all the magic possible
 
@@ -261,7 +261,7 @@ function getAjaxFunctionAllImprovements(path){
 					/*link.onclick = function (){
 						let idNumber = this.id.split('_');
 						getAjaxFunctionAnImprovement("/api/v1/improvements/" + displayArray[x].improvement_id);
-					};*/
+					};
 					let nameDisplay = document.createElement("td");
 					nameDisplay.innerText = displayArray[x].customer.customerName;
 					let partDisplay = document.createElement("td");
@@ -288,11 +288,11 @@ function getAjaxFunctionAllImprovements(path){
 	ajaxRequest.open("GET", path,true);
 	ajaxRequest.send(null);
 	console.log("end of getIndexImprovements");
-}
-function getIndexImprovements(){
+}*/
+/*function getIndexImprovements(){
 	console.log("in getIndexImprovements");
 	getAjaxFunctionAllImprovements("/api/v1/improvements" );
-}
+}*/
 let createIm = document.getElementById("create-improvement");
 
 if (window.addEventListener) {
