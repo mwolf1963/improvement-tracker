@@ -17,8 +17,15 @@ public class IndexController {
 
 	@Autowired
 	private ImprovementRepository improvementRepository;
-	@GetMapping("/")
+	@GetMapping("/")	
 	public String index(Model model) {
+		List<Improvement> improvements = improvementRepository.findAll();
+		model.addAttribute("improvements", improvements);
+		return "index";
+	}
+	//this is ugly, stupid
+	@GetMapping("/index.html")	
+	public String indexResuest(Model model) {
 		List<Improvement> improvements = improvementRepository.findAll();
 		model.addAttribute("improvements", improvements);
 		return "index";

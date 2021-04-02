@@ -19,6 +19,10 @@ var materialsArray;
 }*/
 
 function createForm() {
+	//hide the table from the original index page
+	let table = document.getElementById("display_table");
+	table.style.visibility = hidden;
+	
 	let materialArray = new Map();
 	let impTypeArray = new Map();
 	let departmentArray = new Map();
