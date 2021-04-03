@@ -28,15 +28,15 @@ public class ImprovementController {
 	@Autowired
 	private ImprovementRepository improvementRepository;
 	@Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 	@Autowired
-    PartRepository partRepository;
+    private PartRepository partRepository;
 	@Autowired
-    MaterialRepository materialRepository;
+	private MaterialRepository materialRepository;
 	@Autowired
-    DepartmentRepository departmentRepository;
+	private DepartmentRepository departmentRepository;
 	@Autowired
-    ImprovementTypeRepository improvementTypeRepository;
+	private ImprovementTypeRepository improvementTypeRepository;
     @GetMapping
     public List<Improvement> list(){
     	System.out.println("in the getimprovements API");
