@@ -22,4 +22,6 @@ public abstract class AbstractEntity<ID> implements Persistable<ID> {
     void markNotNew() {
         this.isNew = false;
     }
+    
+    private String thisisanewstring;
 }
