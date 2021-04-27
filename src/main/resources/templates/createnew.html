@@ -32,12 +32,12 @@
     <div id="ajax_content">
     <form method="post" action="/createnew" id="displaySingle" class="container"><div class="row"> 
     <div class="col-6">
-    	<label id="customer name_label_id" class="one-twenty">Customer Name</label>
+    	<label id="customer name_label_id" class="one-twenty"> Customer Name</label>
     	<input id="customer_name_input_id">
     </div>
     <div class="col-6">
 	   	
-    <label id="improvement type_label_id" class="one-sixty">Improvement Type</label>
+    <label id="improvement_type_label_id" class="one-sixty">Improvement Type</label>
     <select id="improvement_type_select_id" class="one-sixty">
     <option text=""></option>
     <option th:each="improvementType: ${improvementTypes}" th:id="${improvementType.getImprovement_id()}" th:text=${improvementType.getImprovementType()}></option>
@@ -47,13 +47,13 @@
     <div class="row">
     <div class="col-6">
     <label id="part number_label_id" class="one-twenty">Part Number</label>
-    <input id="part_number_input_id" value="part1">
+    <input id="part_number_input_id">
     </div>
     <div class="col-6">
     <label id="material type_label_id" class="one-sixty">Material Type</label>
     <select id="material_type_select_id" class="one-sixty" >
     <option selected=""></option>
-    <option th:each="materialType: ${materialTypes}" th:id="${materialType.getId()}" th:text=${materialType.getMaterialType()}></option>
+    <option th:each="material: ${materials}" th:id="${material.getId()}" th:text=${material.getMaterialType()}></option>
     </select>
     </div>
     </div>
@@ -68,14 +68,14 @@
     </div>
     <div class="text-area-div">
     <label id="problem_label_id" class="one-sixty">Problem</label>
-    <textarea id="problem_textarea_id" class="form-textarea">a problem</textarea>
+    <textarea id="problem_textarea_id" class="form-textarea"></textarea>
     </div>
     <div class="">
     <label id="solution_label_id" class="one-sixty">Solution</label>
-    <textarea id="solution_textarea_id" class="form-textarea">fixed the problem</textarea>
+    <textarea id="solution_textarea_id" class="form-textarea"></textarea>
     </div><div class="">
     <label id="conclusion_label_id" class="one-sixty">Conclusion</label>
-    <textarea id="conclusion_textarea_id" class="form-textarea">this improvement was added using postman while trouble shooting stupid js</textarea>
+    <textarea id="conclusion_textarea_id" class="form-textarea"></textarea>
     </div>
     <div class="row">
     <button type="submit">Submit</button>
