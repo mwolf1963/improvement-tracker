@@ -49,15 +49,5 @@ public class CreateNewController {
 		model.addAttribute("departments", departments);
 		return "createnew";
 	}
-	
-	//this needs fixed
-	@PostMapping(path="/createnewimprovement")
-	public String CreateNewImprovement( @RequestParam Map<String, String> newImprovement, Model model) {
-		Improvement improvement = new Improvement();
-		//get the data out of the Map and save it 
-		
-		improvementRepository.saveAndFlush(improvement);
-		return "improvementcreated";
-	}
 
 }

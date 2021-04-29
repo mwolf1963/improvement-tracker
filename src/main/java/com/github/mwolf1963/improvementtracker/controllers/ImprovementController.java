@@ -1,6 +1,7 @@
 package com.github.mwolf1963.improvementtracker.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +47,9 @@ public class ImprovementController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public  void  create(@RequestBody Improvement improvement){
+    public  void  create(@RequestParam Map<String,String> param){
+    	System.out.println("We are in the improvementController post mapping for the form");
+    	Improvement improvement = improvementFromMap(param);
     	//just to prove we are getting an improvement
     	System.out.println(improvement.getDescription());
     	System.out.println(improvement.getPart().getMaterial().getId());
@@ -69,7 +73,14 @@ public class ImprovementController {
     	improvementRepository.saveAndFlush(improvement);
     }
     
-    @GetMapping("/{id}")
+    private Improvement improvementFromMap(Map<String, String> param) {
+		// method to unpack the form into an Improvement model
+    	Improvement imp = new Improvement();
+    	
+		return imp;
+	}
+
+	@GetMapping("/{id}")
     public Optional<Improvement> get(@PathVariable("id") int id){
         return improvementRepository.findById(id);
     }

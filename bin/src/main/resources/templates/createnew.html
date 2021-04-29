@@ -1,5 +1,5 @@
-<html lang="en">
-	<head>
+<html>
+<head>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<title>Improvement Tracker</title>
@@ -17,7 +17,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark link" id="create-improvement" href="/createnew">Create Improvement</a>
+                            <a class="nav-link text-dark link">Create Improvement</a>
                             <!-- <a class="nav-link text-dark link" id="tools" href="tools.html">Tools</a> -->
                         </li>
                     </ul>
@@ -29,55 +29,59 @@
     <div id="main_content">
     <h3>A Short About</h3>
         <p id="short_about"> This application was built as a prototype to track improvements for a business with a large customer base. It has been applied in a "manufacturing business", so fields in the current version of the application reflect that purpose. To more about the overall application and construction click <a href="about.html">here</a></p>
-    <div id="ajax_content"><form method="POST" id="displaySingle" class="container"><div class="row">
+    <div id="ajax_content">
+    <form method="post" action="/createnew" id="displaySingle" class="container"><div class="row"> 
     <div class="col-6">
-    	<label id="customer name_label_id" class="one-twenty">Customer Name</label>
-    	<input id="customer_name_input_id" th:value="${customer_name}">
+    	<label id="customer name_label_id" class="one-twenty"> Customer Name</label>
+    	<input id="customer_name_input_id">
     </div>
     <div class="col-6">
-    <label id="improvement type_label_id" class="one-sixty">Improvement Type</label>
-    <select id="improvement_type_select_id" class="one-sixty" disabled>
-    <option selected th:text="${imp_type}"></option>
+	   	
+    <label id="improvement_type_label_id" class="one-sixty">Improvement Type</label>
+    <select id="improvement_type_select_id" class="one-sixty">
+    <option text=""></option>
+    <option th:each="improvementType: ${improvementTypes}" th:id="${improvementType.getImprovement_id()}" th:text=${improvementType.getImprovementType()}></option>
     </select>
     </div>
     </div>
     <div class="row">
     <div class="col-6">
     <label id="part number_label_id" class="one-twenty">Part Number</label>
-    <input id="part_number_input_id" th:value="${part_number}">
+    <input id="part_number_input_id">
     </div>
     <div class="col-6">
     <label id="material type_label_id" class="one-sixty">Material Type</label>
-    <select id="material_type_select_id" class="one-sixty" disabled>
-    <option selected th:text="${material_type}"></option>
+    <select id="material_type_select_id" class="one-sixty" >
+    <option selected=""></option>
+    <option th:each="material: ${materials}" th:id="${material.getId()}" th:text=${material.getMaterialType()}></option>
     </select>
     </div>
     </div>
     <div class="row">
     <div class=" offset-6 col-6 ">
     <label id="department_label_id" class="one-sixty">Department</label>
-    <select id="department_select_id" class="one-sixty" disabled>
-    <option selected th:text="${department_name}"></option>
+    <select id="department_select_id" class="one-sixty" th:for>
+    <option selected=""></option>
+    <option th:each="department : ${departments}" th:id="${department.getDepartment_id()}" th:text=${department.getName()}></option>
     </select>
     </div>
     </div>
     <div class="text-area-div">
     <label id="problem_label_id" class="one-sixty">Problem</label>
-    <textarea id="problem_textarea_id" class="form-textarea" th:text="${problem}"></textarea>
+    <textarea id="problem_textarea_id" class="form-textarea"></textarea>
     </div>
     <div class="">
     <label id="solution_label_id" class="one-sixty">Solution</label>
-    <textarea id="solution_textarea_id" class="form-textarea" th:text="${solution}"></textarea>
+    <textarea id="solution_textarea_id" class="form-textarea"></textarea>
     </div><div class="">
     <label id="conclusion_label_id" class="one-sixty">Conclusion</label>
-    <textarea id="conclusion_textarea_id" class="form-textarea" th:text="${conclusion}"></textarea>
+    <textarea id="conclusion_textarea_id" class="form-textarea"></textarea>
     </div>
     <div class="row">
+    <button type="submit">Submit</button>
     </div>
     </form>
-    </div>
-        <p id="ref_ajax"></p>
-    </div>
+
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -90,5 +94,6 @@
     <script src="/js/ci-component.js"></script>
     <script src="/js/index.js"></script>
  	-->
-	</body>
+	
+</body>
 </html>

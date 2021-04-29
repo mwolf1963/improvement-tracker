@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="index.html">Continuous Improvements</a>
+                <a class="navbar-brand" href="/">Continuous Improvements</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,7 +19,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark link" id="create-improvement">Create Improvement</a>
+                            <a class="nav-link text-dark link"  href="createnew">Create Improvement</a>
                             <!-- <a class="nav-link text-dark link" id="tools" href="tools.html">Tools</a> -->
                         </li>
                     </ul>
@@ -35,6 +35,24 @@
 
     </div>
         <p id="ref_ajax"></p>
+        <table id="display_table">
+        	<tr>
+        		<th>Click to View</th>
+        		<th>Customer Name</th>
+        		<th>Part Number</th>
+        		<th>Improvement Type</th>
+        		<th>Material</th>
+        	</tr>
+        	<tr th:each="improvement: ${improvements}">
+        		<td>
+        			<a th:id="${'view_improvement_' + improvement.getImprovement_id()}" th:href="${'view_improvement?id=' +improvement.getImprovement_id()}" class="view_improvement_link">View</a>
+        		</td>
+        		<td th:text="${improvement.getCustomer().getCustomerName()}"></td>
+        		<td th:text="${improvement.getPart().getPartNumber()}"></td>
+        		<td th:text="${improvement.getImprovementType().getImprovementType()}"></td>
+        		<td th:text="${improvement.getPart().getMaterial().getMaterialType()}"></td>
+        	</tr>
+        </table>
     </div>
     </div>
     <footer class="border-top footer text-muted">
